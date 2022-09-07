@@ -13,9 +13,14 @@
 {% block content %}
 <div class="container">
     <h1 class="heading">Select Movie</h1>
+  {% for movie in movies %}
   <p>
-    <a href="#"> MOVIE TITLE - MOVIE RELEASE DATE</a>
+    <a href="{{ url_for('find_movie',  id=movie.id, title=movie.title, year=movie.release_date,
+     description=movie.overview, img_url=movie.backdrop_path) }}">{{ movie.title }} - {{movie.release_date}}</a>
   </p>
+      {% endfor %}
 
 </div>
 {% endblock %}
+
+<!--title=movie.title, year=movie.release_date, description=movie.overview, img_url=https:/movie.backdrop_path-->
