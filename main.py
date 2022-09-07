@@ -72,7 +72,10 @@ def find_movie():
 
 @app.route("/")
 def home():
-    all_movies = db.session.query(Movie).all()
+    all_movies = Movie.query.order_by(Movie.rating.desc()).all()
+    for i in range(len(all_movies)):
+        all_movies[i].ranking = i % len(all_movies) + 1
+        db.session.commit()
     return render_template("index.html", movies=all_movies)
 
 
