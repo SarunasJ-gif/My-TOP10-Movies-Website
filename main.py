@@ -5,6 +5,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 import requests
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
@@ -28,18 +29,6 @@ class Movie(db.Model):
 db.create_all()
 
 
-# new_movie = Movie(
-#     title="Phone Booth",
-#     year=2002,
-#     description="Publicist Stuart Shepard finds himself trapped in a phone booth, pinned down by an extortionist's sniper rifle. Unable to leave or receive outside help, Stuart's negotiation with the caller leads to a jaw-dropping climax.",
-#     rating=7.3,
-#     ranking=10,
-#     review="My favourite character was the caller.",
-#     img_url="https://image.tmdb.org/t/p/w500/tjrX2oWRCM3Tvarz38zlZM7Uc10.jpg"
-# )
-# db.session.add(new_movie)
-# db.session.commit()
-
 class RateMovieForm(FlaskForm):
     rating = StringField('Your Rating Out of 10 e.g. 7.5', validators=[DataRequired()])
     review = StringField('Your Review', validators=[DataRequired()])
@@ -51,7 +40,7 @@ class AddMovieForm(FlaskForm):
     submit = SubmitField('Add Movie')
 
 
-API_KEY = "962672f8b77be8d8f4c78b0d080577a3"
+API_KEY = os.environ.get('MOVIE_DB_API_KEY')
 URL = "https://api.themoviedb.org/3/search/movie"
 TMDB_IMAGE_URL = 'https://image.tmdb.org/t/p/w500'
 
